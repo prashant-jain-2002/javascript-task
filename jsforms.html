@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>form validation</title>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@16.0.3/build/css/intlTelInput.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/css/jsforms_style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.min.js"
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.min.js"
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@16.0.3/build/js/intlTelInput.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+  <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <form method="post" action="/action_page.php" onsubmit="validateform(event)" >
+      <i class="fas fa-paper-plane"></i>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label>Full Name</label>
+        </div>
+        <div class="input-group-right">
+          <input type="text" placeholder="Enter your name" id="contact-name" onkeyup="validateName()">
+          <span id="name-error"></span>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label>Phone No.</label>
+        </div>
+        <div class="input-group-right">
+          <input type="tel" id="phone" class="tel-input" name="phone" placeholder="" pattern="^[0-9]+$"
+            onkeyup="validatephone()">
+          <span id="phone-error"></span>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label>Email Id</label>
+        </div>
+        <div class="input-group-right">
+          <input type="email" placeholder="Enter Email" id="contact-email" onkeyup="validateemail()">
+          <span id="email-error"></span>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label class="control-label">Address</label>
+        </div>
+        <div class="input-group-right">
+          <input class="form-control" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"
+            type="text" class="form-control">
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label class="control-label">Street address</label>
+        </div>
+        <div class="input-group-right">
+          <input class="form-control" id="street_number">
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label class="control-label">City</label>
+        </div>
+        <div class="input-group-right">
+          <input class="form-control field" id="locality" disabled="true">
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label class="control-label">State</label>
+        </div>
+        <div class="input-group-right">
+          <input class="form-control" id="administrative_area_level_1" disabled="true">
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label class="control-label">Zip code</label>
+        </div>
+        <div class="input-group-right">
+          <input class="form-control" id="postal_code" disabled="true">
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label class="control-label">Country</label>
+        </div>
+        <div class="input-group-right">
+          <input class="form-control" id="country" disabled="true">
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label>Your Message</label>
+        </div>
+        <div class="input-group-right">
+          <textarea rows="5" placeholder="Enter your message" id="contact-message"
+            onkeyup="validatemessage()"></textarea>
+          <span id="message-error"></span>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label>Check Box</label>
+        </div>
+        <div class="input-group-right">
+          <div class="input-group-right-inner">
+            <div class="group-right-lft" >
+              <div class="checkbox_wrp">
+                <input type="checkbox" name="chk"  value="a"><label>a</label>
+              </div>
+              <div class="checkbox_wrp">
+                <input type="checkbox" name="chk" value="b"><label>b</label>
+              </div>
+              <div class="checkbox_wrp">
+                <input type="checkbox" name="chk" value="c">c</label>
+              </div>
+              <div class="checkbox_wrp">
+                <input type="checkbox" name="chk" value="d"><label>d</label>
+              </div>
+            </div>
+            <div class="group-right-right">
+              <button type="button" onclick='selects()' >Select All</button>
+              <button type="button" onclick='deSelect()'>Deselect All</button>
+            </div>
+          </div>
+          <span id="multiple-check-error"></span>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-lft">
+          <label>Your Resume</label>
+        </div>
+        <div class="input-group-right">
+          <input type="file" id="file" onchange="return fileValidation()" />
+          <span id="imagePreview"></span>
+        </div>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="formcheck" onclick="checkCheckBox()">
+        <label class="form-check-label" for="form-check">Check me out</label>
+        <br>
+        <span id="checbox-error"></span>
+      </div>
+      <button type="submit"> Submit</button>
+      <span id="submit-error"></span>
+    </form>
+
+
+
+
+  </div>
+  <script src="assets/js/jsforms_custom.js">
+  </script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2KRk70j_IJ4bIAdDCIhQajT-N-P2_p48&libraries=places&callback=initAutocomplete"
+    async defer></script>
+</body>
+
+</html>
